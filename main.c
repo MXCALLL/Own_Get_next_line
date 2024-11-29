@@ -6,39 +6,40 @@
 /*   By: muidbell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 17:07:52 by muidbell          #+#    #+#             */
-/*   Updated: 2024/11/27 16:13:52 by muidbell         ###   ########.fr       */
+/*   Updated: 2024/11/29 13:08:47 by muidbell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-// void f()
-// {
-// 		system("leaks a.out");
-// }
+#include <stdio.h>
+#include <time.h>
+
+void f()
+{
+		system("leaks a.out");
+}
 
 int main()
 {
-	char  *s;
-	int fd = open("test.txt", O_RDWR);
-	// write(fd, "hh\nhhh", 7);
-	// lseek(fd, 0, SEEK_SET);
+    // Start measuring time
+    // clock_t start = clock();
 
-	s = get_next_line(fd);
-	printf("%s",s);
-	free(s);
+    char  *s;
+    int fd = open("giant_line.txt", O_RDONLY);
+    printf("%d",fd);
 
-	s = get_next_line(fd);
-	printf("%s",s);
-	free(s);
-		s = get_next_line(fd);
-	printf("%s",s);
-	free(s);
+    s = get_next_line(fd);
+    while (s != NULL)
+    {
+        printf("%s",s);
+        s = get_next_line(fd);
+        free(s);
+    }
 
-	s = get_next_line(fd);
-	printf("%s",s);
-	free(s);
+    // Calculate and print execution time
+    // clock_t end = clock();
+    // double cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+    // printf("\nExecution time: %f seconds\n", cpu_time_used);
 
-	// free(s);
-	// atexit(f);
-	return 0;
+    return 0;
 }
