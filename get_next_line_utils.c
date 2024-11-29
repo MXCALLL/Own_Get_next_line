@@ -6,7 +6,7 @@
 /*   By: muidbell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 13:37:01 by muidbell          #+#    #+#             */
-/*   Updated: 2024/11/28 20:08:09 by muidbell         ###   ########.fr       */
+/*   Updated: 2024/11/29 22:09:01 by muidbell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,22 +108,4 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	ft_memcpy(total_alloc + s1_len, s2, s2_len);
 	total_alloc[s1_len + s2_len] = '\0';
 	return (total_alloc);
-}
-
-char	*ft_strchr(const char *s, int c)
-{
-	int		i;
-
-	if (!s)
-		return (NULL);
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == (char)c)
-			return ((char *)&s[i]);
-		i++;
-	}
-	if ((char)c == '\0')
-		return ((char *)&s[i]);
-	return (NULL);
 }

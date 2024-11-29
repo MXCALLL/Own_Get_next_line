@@ -6,11 +6,29 @@
 /*   By: muidbell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 13:07:57 by muidbell          #+#    #+#             */
-/*   Updated: 2024/11/28 20:28:48 by muidbell         ###   ########.fr       */
+/*   Updated: 2024/11/29 22:24:16 by muidbell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+char	*ft_strchr(const char *s, int c)
+{
+	int		i;
+
+	if (!s)
+		return (NULL);
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == (char)c)
+			return ((char *)&s[i]);
+		i++;
+	}
+	if ((char)c == '\0')
+		return ((char *)&s[i]);
+	return (NULL);
+}
 
 static char	*read_line(int fd, char *saved)
 {
@@ -18,7 +36,7 @@ static char	*read_line(int fd, char *saved)
 	char	*temp;
 	ssize_t	bytes_read;
 
-	buffer = malloc(BUFFER_SIZE + 1);
+	buffer = malloc((size_t)BUFFER_SIZE + 1);
 	if (!buffer)
 		return (free(saved), NULL);
 	bytes_read = 1;
@@ -37,7 +55,7 @@ static char	*read_line(int fd, char *saved)
 			return (free(buffer), NULL);
 		saved = temp;
 	}
-	return (free(buffer), saved);
+	return (free(buffer), buffer = NULL, saved);
 }
 
 static char	*extract_line(char *content)
@@ -67,13 +85,9 @@ static char	*save_remainder(char *content)
 	if (content[i] == '\n')
 		i++;
 	if (!content[i])
-	{
-		free(content);
-		return (NULL);
-	}
+		return (free(content), NULL);
 	remainder = ft_strdup(content + i);
-	free(content);
-	return (remainder);
+	return (free(content), remainder);
 }
 
 char	*get_next_line(int fd)
@@ -82,13 +96,13 @@ char	*get_next_line(int fd)
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
-		return (free(saved),saved = NULL, NULL);
+		return (free(saved), saved = NULL, NULL);
 	saved = read_line(fd, saved);
 	if (!saved)
 		return (NULL);
 	line = extract_line(saved);
 	if (!line)
-	    return (free(saved),saved = NULL,NULL);
+		return (free(saved), saved = NULL, NULL);
 	saved = save_remainder(saved);
 	return (line);
 }

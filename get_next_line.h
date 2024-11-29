@@ -6,7 +6,7 @@
 /*   By: muidbell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 13:08:04 by muidbell          #+#    #+#             */
-/*   Updated: 2024/11/28 20:08:20 by muidbell         ###   ########.fr       */
+/*   Updated: 2024/11/29 22:08:48 by muidbell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <limits.h>
+
+# include <stdio.h> // to delete
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
