@@ -6,7 +6,7 @@
 /*   By: muidbell <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 13:07:57 by muidbell          #+#    #+#             */
-/*   Updated: 2024/11/29 22:24:16 by muidbell         ###   ########.fr       */
+/*   Updated: 2024/11/30 13:26:24 by muidbell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ char	*get_next_line(int fd)
 	static char	*saved;
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd >= OPEN_MAX || BUFFER_SIZE > INT_MAX)
 		return (free(saved), saved = NULL, NULL);
 	saved = read_line(fd, saved);
 	if (!saved)
